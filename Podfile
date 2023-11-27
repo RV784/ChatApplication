@@ -7,4 +7,8 @@ target 'Massenger' do
 
   # Pods for Massenger
 
+pod 'FirebaseCore'
+pod 'FirebaseAuth'
+pod 'FirebaseDatabase'
+
 end

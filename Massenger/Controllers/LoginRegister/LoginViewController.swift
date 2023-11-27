@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -111,6 +112,16 @@ class LoginViewController: UIViewController {
         passwordField.resignFirstResponder()
         
         // FIREBASE REGISTER
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard error == nil,
+                  let result = authResult else {
+                print("Error logging in user, error -> \(error?.localizedDescription ?? "")")
+                return
+            }
+            
+            let user = result.user
+            print("verified user user -> \(user)")
+        }
     }
     
     private func alertUserLoginError() {

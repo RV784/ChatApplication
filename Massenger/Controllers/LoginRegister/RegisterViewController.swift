@@ -1,4 +1,4 @@
-//
+ //
 //  RegisterViewController.swift
 //  Massenger
 //
@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
@@ -159,6 +160,16 @@ class RegisterViewController: UIViewController {
         passwordField.resignFirstResponder()
         
         // FIREBASE LOGIN
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+            guard error == nil,
+                  let result = authResult else {
+                print("Error creating user, error -> \(error?.localizedDescription ?? "")")
+                return
+            }
+            
+            let user = result.user
+            print("created user -> \(user)")
+        }
     }
     
     @objc
