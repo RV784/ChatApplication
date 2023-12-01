@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ConversationsViewController: UIViewController {
 
@@ -17,9 +18,14 @@ class ConversationsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let isLoggedIn = UserDefaults.standard.bool(forKey: "logged_In")
-        
-        if !isLoggedIn {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Chats"
+        validateAuth()
+    }
+    
+    private func validateAuth() {
+        // The current user property will set when you log in the user
+        if FirebaseAuth.Auth.auth().currentUser == nil {
             let vc = LoginViewController()
             let navVC = UINavigationController(rootViewController: vc)
             navVC.modalPresentationStyle = .overFullScreen

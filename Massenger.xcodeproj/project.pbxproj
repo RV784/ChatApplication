@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB35CE7B2B14E4B900DD1CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB35CE7A2B14E4B900DD1CF3 /* GoogleService-Info.plist */; };
+		AB35CE7F2B1788A700DD1CF3 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */; };
+		AB35CE832B1A51D700DD1CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */; };
 		ABF6BACC2AC5B61200F3AA85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6BACB2AC5B61200F3AA85 /* AppDelegate.swift */; };
 		ABF6BACE2AC5B61200F3AA85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6BACD2AC5B61200F3AA85 /* SceneDelegate.swift */; };
 		ABF6BAD02AC5B61200F3AA85 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6BACF2AC5B61200F3AA85 /* ConversationsViewController.swift */; };
@@ -27,7 +28,8 @@
 /* Begin PBXFileReference section */
 		109CE0737DFFD75C057618CF /* Pods_Massenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Massenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		393C05E0E31F2CCC6DCFA35A /* Pods-Massenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Massenger.release.xcconfig"; path = "Target Support Files/Pods-Massenger/Pods-Massenger.release.xcconfig"; sourceTree = "<group>"; };
-		AB35CE7A2B14E4B900DD1CF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABF6BAC82AC5B61200F3AA85 /* Massenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Massenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABF6BACB2AC5B61200F3AA85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABF6BACD2AC5B61200F3AA85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +72,7 @@
 		AB35CE772B14E22000DD1CF3 /* FireBase */ = {
 			isa = PBXGroup;
 			children = (
-				AB35CE7A2B14E4B900DD1CF3 /* GoogleService-Info.plist */,
+				AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */,
 			);
 			path = FireBase;
 			sourceTree = "<group>";
@@ -149,6 +151,7 @@
 				ABF6BACB2AC5B61200F3AA85 /* AppDelegate.swift */,
 				ABF6BACD2AC5B61200F3AA85 /* SceneDelegate.swift */,
 				ABF6BAF22AC5D8C000F3AA85 /* Extentions.swift */,
+				AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -240,7 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABF6BAD82AC5B61300F3AA85 /* LaunchScreen.storyboard in Resources */,
-				AB35CE7B2B14E4B900DD1CF3 /* GoogleService-Info.plist in Resources */,
+				AB35CE832B1A51D700DD1CF3 /* GoogleService-Info.plist in Resources */,
 				ABF6BAD52AC5B61300F3AA85 /* Assets.xcassets in Resources */,
 				ABF6BAD32AC5B61200F3AA85 /* Main.storyboard in Resources */,
 			);
@@ -296,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABF6BAE62AC5B81A00F3AA85 /* LoginViewController.swift in Sources */,
+				AB35CE7F2B1788A700DD1CF3 /* DatabaseManager.swift in Sources */,
 				ABF6BAE82AC5B82A00F3AA85 /* RegisterViewController.swift in Sources */,
 				ABF6BAF32AC5D8C000F3AA85 /* Extentions.swift in Sources */,
 				ABF6BAEE2AC5B87900F3AA85 /* NewConversationViewController.swift in Sources */,
@@ -455,6 +459,8 @@
 				DEVELOPMENT_TEAM = 8Q85SCK76S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Massenger/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to camera for taking a picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to your photos for uploading a profile picture";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -484,6 +490,8 @@
 				DEVELOPMENT_TEAM = 8Q85SCK76S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Massenger/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to camera for taking a picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to your photos for uploading a profile picture";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

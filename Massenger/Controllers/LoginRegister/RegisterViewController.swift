@@ -18,7 +18,7 @@ class RegisterViewController: UIViewController {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .lightGray
         imageView.isUserInteractionEnabled = true
@@ -152,7 +152,7 @@ class RegisterViewController: UIViewController {
               !email.isEmpty,
               !password.isEmpty,
               password.count > 6 else {
-            alertUserRegisterAlert()
+            alertUserRegisterAlert(message: "Please enter all information to create an account ")
             return
         }
         
@@ -160,15 +160,25 @@ class RegisterViewController: UIViewController {
         passwordField.resignFirstResponder()
         
         // FIREBASE LOGIN
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
-            guard error == nil,
-                  let result = authResult else {
-                print("Error creating user, error -> \(error?.localizedDescription ?? "")")
+        DatabaseManager.shared.userExistsWithEmail(with: email) { [weak self] exists in
+            if !exists {
+                FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                    guard error == nil,
+                          let result = authResult else {
+                        print("Error creating user, error -> \(error?.localizedDescription ?? "")")
+                        return
+                    }
+                    
+                    let user = result.user
+                    print("created user -> \(user)")
+                    
+                    DatabaseManager.shared.inserUser(with: .init(firstName: firstName, lastName: lastName, email: email))
+                    self?.dismiss(animated: true)
+                }
                 return
             }
-            
-            let user = result.user
-            print("created user -> \(user)")
+            self?.alertUserRegisterAlert(message: "Email already exists, please use a different email address")
+            // Show user already exists error
         }
     }
     
@@ -177,8 +187,8 @@ class RegisterViewController: UIViewController {
         presentPhotoActionSheet()
     }
     
-    private func alertUserRegisterAlert() {
-        let alert = UIAlertController(title: "Whoops", message: "Please enter all the details carefully", preferredStyle: .alert)
+    private func alertUserRegisterAlert(message: String) {
+        let alert = UIAlertController(title: "Whoops", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
         present(alert, animated: true)

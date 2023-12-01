@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>32092098506-9t7nd6sj5nt10h9ocp7r8665uggpk4r0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string> </string>
+	<key>API_KEY</key>
+	<string>AIzaSyCSp7KYBX_5atRtzrEuJb6S0l66l-vWv8o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>32092098506</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rajat.Massenger</string>
+	<key>PROJECT_ID</key>
+	<string>chat-application-101</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chat-application-101.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:32092098506:ios:feaf2de9716523e1294933</string>
+	<key>DATABASE_URL</key>
+	<string>https://chat-application-101-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
