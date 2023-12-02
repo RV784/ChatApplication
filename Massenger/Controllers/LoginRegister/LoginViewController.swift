@@ -9,8 +9,15 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 import FirebaseCore
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
+    
+    private let spinner: JGProgressHUD = {
+        let spinner = JGProgressHUD()
+        spinner.style = .dark
+        return spinner
+    }()
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -126,8 +133,14 @@ class LoginViewController: UIViewController {
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         
+        spinner.show(in: view)
+        
         // FIREBASE REGISTER
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            DispatchQueue.main.async {
+                self?.spinner.dismiss()
+            }
+            
             guard error == nil,
                   let result = authResult else {
                 print("Error logging in user, error -> \(error?.localizedDescription ?? "")")
