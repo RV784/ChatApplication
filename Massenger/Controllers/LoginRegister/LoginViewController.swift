@@ -204,9 +204,35 @@ class LoginViewController: UIViewController {
             return
         }
         
-        DatabaseManager.shared.userExistsWithEmail(with: email ?? "") { doesExists in
+        DatabaseManager.shared.userExistsWithEmail(with: email) { doesExists in
             if !doesExists {
-                DatabaseManager.shared.inserUser(with: .init(firstName: firstName, lastName: lastName, email: email))
+                let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, email: email)
+                DatabaseManager.shared.inserUser(with: chatUser) { isInserted in
+                    if isInserted {
+                        // UPLOAD IMAGE
+                        
+                        if user.profile?.hasImage == true,
+                           let url = user.profile?.imageURL(withDimension: 200) {
+                            
+                            URLSession.shared.dataTask(with: url) { data, _, _ in
+                                if let imageData = data {
+                                    let fileName = chatUser.profilePictureFileName
+                                    StorageManager.shared.uploadProfilePicture(data: imageData,
+                                                                               fileName: fileName) { result in
+                                        switch result {
+                                        case .success(let downloadUrl):
+                                            print(downloadUrl)
+                                            UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                            
+                                        case .failure(let error):
+                                            print("storage manager error -> \(error.localizedDescription)")
+                                        }
+                                    }
+                                }
+                            }.resume()
+                        }
+                    }
+                }
             }
         }
         

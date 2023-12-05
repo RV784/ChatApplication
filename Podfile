@@ -10,6 +10,7 @@ target 'Massenger' do
 pod 'FirebaseCore'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
+pod 'FirebaseStorage'
 
 pod 'GoogleSignIn'
 

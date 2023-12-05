@@ -40,11 +40,18 @@ extension DatabaseManager {
     }
     
     /// Inserts a user to firebase realtime database
-    public func inserUser(with user: ChatAppUser) {
+    public func inserUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child("\(user.safeEmail)").setValue([
             "firstName": user.firstName,
             "lastName": user.lastName
-        ])
+        ]) { error, _ in
+            guard error == nil else {
+                print("Failed to write to DataBase")
+                completion(false)
+                return
+            }
+            completion(true)
+        }
     }
     
     
@@ -56,8 +63,11 @@ struct ChatAppUser {
     let email: String
     
     var safeEmail: String {
-        var safeEmail = email.replacingOccurrences(of: ".", with: "-").replacingOccurrences(of: "@", with: "-")
+        let safeEmail = email.replacingOccurrences(of: ".", with: "-").replacingOccurrences(of: "@", with: "-")
         return safeEmail
     }
-//    let profilePicture: String
+    
+    var profilePictureFileName: String {
+        return "\(safeEmail)_profile_picture.png"
+    }
 }

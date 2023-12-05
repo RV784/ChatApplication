@@ -11,6 +11,7 @@
 		AB35CE832B1A51D700DD1CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */; };
 		ABC97D5B2B1B058E00B09827 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC97D5A2B1B058E00B09827 /* ChatViewController.swift */; };
 		ABC97D5D2B1B2CE400B09827 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC97D5C2B1B2CE400B09827 /* MessageModel.swift */; };
+		ABC97D5F2B1E274900B09827 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC97D5E2B1E274900B09827 /* StorageManager.swift */; };
 		ABF6BACC2AC5B61200F3AA85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6BACB2AC5B61200F3AA85 /* AppDelegate.swift */; };
 		ABF6BACE2AC5B61200F3AA85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6BACD2AC5B61200F3AA85 /* SceneDelegate.swift */; };
 		ABF6BAD02AC5B61200F3AA85 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF6BACF2AC5B61200F3AA85 /* ConversationsViewController.swift */; };
@@ -34,6 +35,7 @@
 		AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABC97D5A2B1B058E00B09827 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ABC97D5C2B1B2CE400B09827 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		ABC97D5E2B1E274900B09827 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		ABF6BAC82AC5B61200F3AA85 /* Massenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Massenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABF6BACB2AC5B61200F3AA85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABF6BACD2AC5B61200F3AA85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				ABF6BACD2AC5B61200F3AA85 /* SceneDelegate.swift */,
 				ABF6BAF22AC5D8C000F3AA85 /* Extentions.swift */,
 				AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */,
+				ABC97D5E2B1E274900B09827 /* StorageManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				ABF6BAE62AC5B81A00F3AA85 /* LoginViewController.swift in Sources */,
 				AB35CE7F2B1788A700DD1CF3 /* DatabaseManager.swift in Sources */,
 				ABF6BAE82AC5B82A00F3AA85 /* RegisterViewController.swift in Sources */,
+				ABC97D5F2B1E274900B09827 /* StorageManager.swift in Sources */,
 				ABF6BAF32AC5D8C000F3AA85 /* Extentions.swift in Sources */,
 				ABF6BAEE2AC5B87900F3AA85 /* NewConversationViewController.swift in Sources */,
 				ABF6BAD02AC5B61200F3AA85 /* ConversationsViewController.swift in Sources */,
