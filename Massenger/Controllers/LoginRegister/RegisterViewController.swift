@@ -189,6 +189,8 @@ class RegisterViewController: UIViewController {
                             // UPLOAD IMAGE
                             guard let image = self?.imageView.image,
                                   let imageData = image.pngData() else {
+                                print("self not found")
+                                self?.dismiss(animated: true)
                                 return
                             }
                             let fileName = chatUser.profilePictureFileName
@@ -203,10 +205,9 @@ class RegisterViewController: UIViewController {
                                     print("storage manager error -> \(error.localizedDescription)")
                                 }
                             }
+                            self?.dismiss(animated: true)
                         }
                     }
-                    
-                    self?.dismiss(animated: true)
                 }
                 return
             }

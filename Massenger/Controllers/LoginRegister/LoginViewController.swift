@@ -149,6 +149,9 @@ class LoginViewController: UIViewController {
             }
             
             let user = result.user
+            
+            UserDefaults.standard.set(email, forKey: "email")
+            
             print("verified user user -> \(user)")
             self?.dismiss(animated: true)
         }
@@ -179,7 +182,7 @@ class LoginViewController: UIViewController {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
             guard error == nil else {
                 self.alertUserLoginError(message: "Something went wrong, please try again later")
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
                 return
             }
             
@@ -187,7 +190,7 @@ class LoginViewController: UIViewController {
                   let idToken = user.idToken?.tokenString
             else {
                 self.alertUserLoginError(message: "Something went wrong, please try again later")
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
                 return
             }
             
@@ -203,6 +206,8 @@ class LoginViewController: UIViewController {
             self.alertUserLoginError(message: "Something went wrong, please try again later")
             return
         }
+        
+        UserDefaults.standard.set(email, forKey: "email")
         
         DatabaseManager.shared.userExistsWithEmail(with: email) { doesExists in
             if !doesExists {

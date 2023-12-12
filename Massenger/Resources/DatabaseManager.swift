@@ -20,6 +20,11 @@ final class DatabaseManager {
         // Passing nil as the key setValue will delete the key itself
         database.child("foo").setValue(["something": true])
     }
+    
+    static func safeEmail(email: String) -> String {
+        let safeEmail = email.replacingOccurrences(of: ".", with: "-").replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
 }
 
 // MARK: Account Management
@@ -50,11 +55,66 @@ extension DatabaseManager {
                 completion(false)
                 return
             }
-            completion(true)
+            
+            /* Users Array
+             
+            users =>  [
+                [
+                    "name": wekjn,
+                    "safe_email": wkeubfcjn
+                ],
+                [
+                 "name": wekjn,
+                 "safe_email": wkeubfcjn
+                ],
+             ]
+             */
+            self.database.child("users").observeSingleEvent(of: .value) { snapshot in
+                if var usersCollection = snapshot.value as? [[String: String]] {
+                    // Append to user dictionary
+                    let newElemtent = [
+                        "name": "\(user.firstName) \(user.lastName)",
+                        "safe_email": user.safeEmail
+                    ]
+                    usersCollection.append(newElemtent)
+                    self.database.child("users").setValue(usersCollection) { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                        
+                        completion(true)
+                    }
+                } else {
+                    // Create a user dictionary
+                    let newCollection: [[String: String]] = [
+                        [
+                            "name": "\(user.firstName) \(user.lastName)",
+                            "safe_email": user.safeEmail
+                        ]
+                    ]
+                    self.database.child("users").setValue(newCollection) { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                        
+                        completion(true)
+                    }
+                }
+            }
         }
     }
     
-    
+    public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
+        database.child("users").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [[String: String]] else {
+                completion(.failure(DatabaseError.failedToFetch))
+                return
+            }
+            completion(.success(value))
+        }
+    }
 }
 
 struct ChatAppUser {
@@ -70,4 +130,9 @@ struct ChatAppUser {
     var profilePictureFileName: String {
         return "\(safeEmail)_profile_picture.png"
     }
+}
+
+
+public enum DatabaseError: Error {
+    case failedToFetch
 }

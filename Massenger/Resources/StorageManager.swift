@@ -12,6 +12,7 @@ final class StorageManager {
     static let shared = StorageManager()
     private init() {}
     
+    // Our internal reference to firebase storage object
     private let storage = Storage.storage().reference()
     
     /*
@@ -45,9 +46,23 @@ final class StorageManager {
             }
         })
     }
+    
+    public func downloadUrl(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let reference = storage.child(path)
+        
+        reference.downloadURL { url, error in
+            guard let url = url,
+                  error == nil else {
+                completion(.failure(StorageErrors.failedToGetDownloadURL))
+                return
+            }
+            completion(.success(url))
+        }
+    }
 }
 
 public enum StorageErrors: Error {
     case failedToUpload
     case failedToGetDownloadURL
+    case dictionaryNotReturned
 }
