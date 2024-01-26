@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AB35CE7F2B1788A700DD1CF3 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */; };
 		AB35CE832B1A51D700DD1CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */; };
+		AB805B6A2B3DD49400A74C5E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB805B692B3DD49400A74C5E /* ConversationTableViewCell.swift */; };
+		AB805B6C2B3E9E9800A74C5E /* ConversationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB805B6B2B3E9E9800A74C5E /* ConversationsModel.swift */; };
 		ABC97D5B2B1B058E00B09827 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC97D5A2B1B058E00B09827 /* ChatViewController.swift */; };
 		ABC97D5D2B1B2CE400B09827 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC97D5C2B1B2CE400B09827 /* MessageModel.swift */; };
 		ABC97D5F2B1E274900B09827 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC97D5E2B1E274900B09827 /* StorageManager.swift */; };
@@ -33,6 +35,8 @@
 		393C05E0E31F2CCC6DCFA35A /* Pods-Massenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Massenger.release.xcconfig"; path = "Target Support Files/Pods-Massenger/Pods-Massenger.release.xcconfig"; sourceTree = "<group>"; };
 		AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AB805B692B3DD49400A74C5E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		AB805B6B2B3E9E9800A74C5E /* ConversationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsModel.swift; sourceTree = "<group>"; };
 		ABC97D5A2B1B058E00B09827 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ABC97D5C2B1B2CE400B09827 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		ABC97D5E2B1E274900B09827 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			children = (
 				ABF6BAE42AC5B72100F3AA85 /* Storyboard */,
 				ABF6BAD42AC5B61300F3AA85 /* Assets.xcassets */,
+				AB805B692B3DD49400A74C5E /* ConversationTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				ABC97D5C2B1B2CE400B09827 /* MessageModel.swift */,
+				AB805B6B2B3E9E9800A74C5E /* ConversationsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,6 +315,7 @@
 			files = (
 				ABF6BAE62AC5B81A00F3AA85 /* LoginViewController.swift in Sources */,
 				AB35CE7F2B1788A700DD1CF3 /* DatabaseManager.swift in Sources */,
+				AB805B6C2B3E9E9800A74C5E /* ConversationsModel.swift in Sources */,
 				ABF6BAE82AC5B82A00F3AA85 /* RegisterViewController.swift in Sources */,
 				ABC97D5F2B1E274900B09827 /* StorageManager.swift in Sources */,
 				ABF6BAF32AC5D8C000F3AA85 /* Extentions.swift in Sources */,
@@ -321,6 +328,7 @@
 				ABF6BACE2AC5B61200F3AA85 /* SceneDelegate.swift in Sources */,
 				ABC97D5B2B1B058E00B09827 /* ChatViewController.swift in Sources */,
 				ABF6BAEA2AC5B84B00F3AA85 /* PhotoViewerViewController.swift in Sources */,
+				AB805B6A2B3DD49400A74C5E /* ConversationTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

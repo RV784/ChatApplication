@@ -14,6 +14,7 @@ class NewConversationViewController: UIViewController {
     private var users: [[String: String]] = []
     private var results: [[String: String]] = []
     private var hasFetched = false
+    public var completion: (([String: String]) -> Void)?
     
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -146,5 +147,9 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // Start conversation
+        let targetUserData = results[indexPath.row]
+        self.dismiss(animated: true) { [weak self] in
+            self?.completion?(targetUserData)
+        }
     }
 }

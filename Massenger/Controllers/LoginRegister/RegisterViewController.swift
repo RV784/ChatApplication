@@ -109,7 +109,6 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         title = "Register"
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         // Do any additional setup after loading the view.
         initAppearance()
         

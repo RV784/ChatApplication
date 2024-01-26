@@ -7,29 +7,102 @@
 
 import UIKit
 import MessageKit
+import InputBarAccessoryView
 
 class ChatViewController: MessagesViewController {
     
+    public static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .long
+        formatter.locale = .current
+        return formatter
+    }()
+    
     private var messages = [Message]()
-    private var selfSender = Sender(photoUrl: "", senderId: "1", displayName: "Rajat")
+    private var selfSender: Sender? {
+        guard let userEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return nil
+        }
+        let safeEmail = DatabaseManager.safeEmail(email: userEmail)
+        
+        return Sender(photoUrl: "",
+               senderId: safeEmail,
+               displayName: "Me")
+    }
+    public var isNewConversation = false
+    public let otherUserEmail: String
+    private let conversationId: String?
 
+    init(with email: String, id: String?) {
+        self.otherUserEmail = email
+        self.conversationId = id
+        super.init(nibName: nil, bundle: nil)
+        if let conversationId = conversationId {
+            listenForMessages(id: conversationId, shouldScrollToBottom: true)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
-        messages.append(.init(sender: selfSender,
-                              messageId: "1",
-                              sentDate: Date(),
-                              kind: .text("Hello World message"))
-        )
-        
-        messages.append(.init(sender: selfSender,
-                              messageId: "1",
-                              sentDate: Date(),
-                              kind: .text("Lmao this is weird"))
-        )
+//        messages.append(.init(sender: selfSender,
+//                              messageId: "1",
+//                              sentDate: Date(),
+//                              kind: .text("Hello World message"))
+//        )
+//        
+//        messages.append(.init(sender: selfSender,
+//                              messageId: "1",
+//                              sentDate: Date(),
+//                              kind: .text("Lmao this is weird"))
+//        )
+        messageInputBar.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        messageInputBar.inputTextView.becomeFirstResponder()
+    }
+    
+    private func createMessageId() -> String? {
+        // Date, OtherUserEmail, SendEmail, randomInt
+        guard let currentUserEmail = UserDefaults.standard.string(forKey: "email") else {
+            return nil
+        }
+        let safeCurrentEmail = DatabaseManager.safeEmail(email: currentUserEmail)
+        let dateString = Self.dateFormatter.string(from: Date())
+        let newIdentifier = "\(otherUserEmail)_\(safeCurrentEmail)_\(dateString)"
+        print("Created message Id: \(dateString)")
+        return newIdentifier
+    }
+    
+    private func listenForMessages(id: String, shouldScrollToBottom: Bool) {
+        DatabaseManager.shared.getAllMessagesForConversation(with: id) { [weak self] result in
+            switch result {
+                
+            case .success(let messages):
+                guard !messages.isEmpty else {
+                    return
+                }
+                self?.messages = messages
+                DispatchQueue.main.async {
+                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+                    if shouldScrollToBottom {
+                        self?.messagesCollectionView.scrollToLastItem()
+                    }
+                }
+            case .failure(let error):
+                print("Failed to get messages \(error.localizedDescription)")
+            }
+        }
     }
 }
 
@@ -38,7 +111,10 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
     
     // Who the current sender is?
     func currentSender() -> MessageKit.SenderType {
-        selfSender
+        if let selfSender = selfSender {
+            return selfSender
+        }
+        fatalError("SelfSender is nil, email should be cashed")
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessageKit.MessagesCollectionView) -> MessageKit.MessageType {
@@ -50,5 +126,36 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
     
     func numberOfSections(in messagesCollectionView: MessageKit.MessagesCollectionView) -> Int {
         messages.count
+    }
+}
+
+// MARK: InputBarAccessoryViewDelegate
+extension ChatViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        guard !text.replacingOccurrences(of: " ", with: "").isEmpty,
+              let selfSender = selfSender,
+              let messageId = createMessageId() else {
+            return
+        }
+        print("Sending Message: \(text)")
+        // Send Message
+        if isNewConversation {
+            // create convo in DB
+            let message = Message(sender: selfSender,
+                                  messageId: messageId,
+                                  sentDate: Date(),
+                                  kind: .text(text))
+            DatabaseManager.shared.createNewConversation(with: otherUserEmail, 
+                                                         name: self.title ?? "User ",
+                                                         firstMessage: message) { [weak self] success in
+                if success {
+                    print("Message send")
+                } else {
+                    print("Failed to send")
+                }
+            }
+        } else {
+            // Append to existing Convo data
+        }
     }
 }
