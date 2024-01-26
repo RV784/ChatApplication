@@ -150,6 +150,21 @@ class LoginViewController: UIViewController {
             
             let user = result.user
             
+            let safeEmail = DatabaseManager.safeEmail(email: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail) { result in
+                switch result {
+                    
+                case .success(let data):
+                    if let dict = data as? [String: Any],
+                       let firstName = dict["firstName"] as? String,
+                       let lastName = dict["lastName"] as? String {
+                        UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                    }
+                case .failure(let error):
+                    print("Failed to get name details: \(error.localizedDescription)")
+                }
+            }
+            
             UserDefaults.standard.set(email, forKey: "email")
             
             print("verified user user -> \(user)")
@@ -208,6 +223,7 @@ class LoginViewController: UIViewController {
         }
         
         UserDefaults.standard.set(email, forKey: "email")
+        UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
         
         DatabaseManager.shared.userExistsWithEmail(with: email) { doesExists in
             if !doesExists {
