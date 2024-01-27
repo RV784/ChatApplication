@@ -47,3 +47,10 @@ struct Sender: SenderType {
     var senderId: String
     var displayName: String
 }
+
+struct Media: MediaItem {
+    var url: URL?
+    var image: UIImage?
+    var placeholderImage: UIImage
+    var size: CGSize
+}

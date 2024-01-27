@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import MessageKit
 
 final class DatabaseManager {
     static let shared = DatabaseManager()
@@ -376,8 +377,27 @@ extension DatabaseManager {
                       let _ = dict["isRead"] as? Bool,
                       let dateString = dict["date"] as? String,
                       let senderEmail = dict["senderEmail"] as? String,
-                      let _ = dict["type"] as? String,
+                      let type = dict["type"] as? String,
                       let date = ChatViewController.dateFormatter.date(from: dateString) else {
+                    return nil
+                }
+                
+                var kind: MessageKind?
+                if type == "photo" {
+                    guard let imageURL = URL(string: content),
+                          let placeholderImage = UIImage(systemName: "plus") else {
+                        return nil
+                    }
+                    let media = Media(url: imageURL,
+                                      image: nil,
+                                      placeholderImage: placeholderImage,
+                                      size: .init(width: 250, height: 250))
+                    kind = .photo(media)
+                } else {
+                    kind = .text(content)
+                }
+                
+                guard let finalKind = kind else {
                     return nil
                 }
                 
@@ -388,7 +408,7 @@ extension DatabaseManager {
                 return .init(sender: sender,
                              messageId: messageId,
                              sentDate: date,
-                             kind: .text(content))
+                             kind: finalKind)
             }
             completion(.success(messages))
         }
@@ -423,8 +443,8 @@ extension DatabaseManager {
                 message = messageText
             case .attributedText(_):
                 break
-            case .photo(_):
-                break
+            case .photo(let mediaItem):
+                message = mediaItem.url?.absoluteString ?? ""
             case .video(_):
                 break
             case .location(_):
