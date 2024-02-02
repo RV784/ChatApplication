@@ -12,9 +12,9 @@ class NewConversationViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
     private var users: [[String: String]] = []
-    private var results: [[String: String]] = []
+    private var results: [SearchResults] = []
     private var hasFetched = false
-    public var completion: (([String: String]) -> Void)?
+    public var completion: ((SearchResults) -> Void)?
     
     private var searchBar: UISearchBar = {
         let bar = UISearchBar()
@@ -25,7 +25,7 @@ class NewConversationViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(NewConversationTableViewCell.self, forCellReuseIdentifier: "NewConversationTableViewCell")
         return table
     }()
     
@@ -92,12 +92,22 @@ class NewConversationViewController: UIViewController {
     }
     
     private func filterUsers(with text: String) {
-        guard hasFetched else { return }
-        var results = users.filter { 
-            guard let name = $0["name"]?.lowercased() else {
+        guard let currentUserEmail = UserDefaults.standard.string(forKey: "email"),
+              hasFetched else { return }
+        let currentUserSafeEmail = DatabaseManager.safeEmail(email: currentUserEmail)
+        var results: [SearchResults] = users.filter {
+            guard let name = $0["name"]?.lowercased(),
+                  let email = $0["safe_email"],
+                  email != currentUserSafeEmail else {
                 return false
             }
             return name.hasPrefix(text.lowercased())
+        }.compactMap {
+            if let name = $0["name"],
+               let email = $0["safe_email"] {
+                return .init(name: name, email: email)
+            }
+            return nil
         }
         
         self.results = results
@@ -137,11 +147,11 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        var content = cell.defaultContentConfiguration()
-        content.text = results[indexPath.row]["name"]
-        cell.contentConfiguration = content
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: NewConversationTableViewCell.identifier, for: indexPath) as? NewConversationTableViewCell {
+            cell.configure(model: results[indexPath.row])
+        }
+        
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -152,4 +162,14 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
             self?.completion?(targetUserData)
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        90
+    }
+}
+
+
+struct SearchResults {
+    let name: String
+    let email: String
 }

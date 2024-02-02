@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB1C191B2B6CFEB600A0FB23 /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1C191A2B6CFEB600A0FB23 /* NewConversationCell.swift */; };
 		AB35CE7F2B1788A700DD1CF3 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */; };
 		AB35CE832B1A51D700DD1CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */; };
 		AB805B6A2B3DD49400A74C5E /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB805B692B3DD49400A74C5E /* ConversationTableViewCell.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		109CE0737DFFD75C057618CF /* Pods_Massenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Massenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		393C05E0E31F2CCC6DCFA35A /* Pods-Massenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Massenger.release.xcconfig"; path = "Target Support Files/Pods-Massenger/Pods-Massenger.release.xcconfig"; sourceTree = "<group>"; };
+		AB1C191A2B6CFEB600A0FB23 /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
 		AB35CE7E2B1788A700DD1CF3 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		AB35CE822B1A51D700DD1CF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AB805B692B3DD49400A74C5E /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				ABF6BAE42AC5B72100F3AA85 /* Storyboard */,
 				ABF6BAD42AC5B61300F3AA85 /* Assets.xcassets */,
 				AB805B692B3DD49400A74C5E /* ConversationTableViewCell.swift */,
+				AB1C191A2B6CFEB600A0FB23 /* NewConversationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				ABC97D5B2B1B058E00B09827 /* ChatViewController.swift in Sources */,
 				ABF6BAEA2AC5B84B00F3AA85 /* PhotoViewerViewController.swift in Sources */,
 				AB805B6A2B3DD49400A74C5E /* ConversationTableViewCell.swift in Sources */,
+				AB1C191B2B6CFEB600A0FB23 /* NewConversationCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,20 +1,20 @@
 //
-//  ConversationTableViewCell.swift
+//  NewConversationCell.swift
 //  Massenger
 //
-//  Created by Rajat verma on 28/12/23.
+//  Created by Rajat verma on 02/02/24.
 //
 
 import UIKit
 import SDWebImage
 
-class ConversationTableViewCell: UITableViewCell {
-    static let identifier = "ConversationTableViewCell"
+class NewConversationTableViewCell: UITableViewCell {
+    static let identifier = "NewConversationTableViewCell"
     
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 50
+        imageView.layer.cornerRadius = 35
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -25,36 +25,26 @@ class ConversationTableViewCell: UITableViewCell {
         return nameLabel
     }()
     
-    private let userMessageLabel: UILabel = {
-        let messageLabel = UILabel()
-        messageLabel.font = .systemFont(ofSize: 19, weight: .regular)
-        messageLabel.numberOfLines = 0
-        return messageLabel
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(userImageView)
         contentView.addSubview(userNameLabel)
-        contentView.addSubview(userMessageLabel)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        userImageView.frame = .init(x: 10, y: 10, width: 100, height: 100)
-        userNameLabel.frame = .init(x: userImageView.right + 10, y: 10, width: contentView.width - 20 - userImageView.width, height: (contentView.height - 20)/2)
-        userMessageLabel.frame = .init(x: userImageView.right + 10, y: userNameLabel.bottom + 10, width: contentView.width - 20 - userImageView.width, height: (contentView.height - 20)/2)
+        userImageView.frame = .init(x: 10, y: 10, width: 70, height: 70)
+        userNameLabel.frame = .init(x: userImageView.right + 10, y: 20, width: contentView.width - 20 - userImageView.width, height: 50)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(model: Conversation) {
-        self.userMessageLabel.text = model.latestMessage.text
+    public func configure(model: SearchResults) {
         self.userNameLabel.text = model.name
         
-        let path = "images/\(model.otherUserEmail)_profile_picture.png"
+        let path = "images/\(model.email)_profile_picture.png"
         StorageManager.shared.downloadUrl(for: path) { [weak self] result in
             switch result {
                 
@@ -68,3 +58,4 @@ class ConversationTableViewCell: UITableViewCell {
         }
     }
 }
+
